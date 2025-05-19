@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>दीपावली की शुभकामनाएं</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle, #000000, #1a1a2e);
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      color: #ffd700;
+      overflow: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+      max-width: 90%;
+      margin: 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #ffd700;
+      background: linear-gradient(to right, #ffd700, #ff8c00, #ff4500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .diwali-img {
+      margin: 20px auto;
+      max-width: 350px;
+      width: 100%;
+      border-radius: 10px;
+      border: 2px solid #ffd700;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+    }
+
+    .animated-text {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 20px 0;
+      animation: glow 1.5s infinite alternate;
+      line-height: 1.4;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ffd700, 0 0 20px #ff8c00; }
+      to { text-shadow: 0 0 20px #ffd700, 0 0 30px #ff8c00, 0 0 40px #ff4500; }
+    }
+
+    input {
+      padding: 12px 15px;
+      font-size: 1rem;
+      margin: 10px;
+      border-radius: 5px;
+      border: none;
+      width: 80%;
+      max-width: 300px;
+      background-color: rgba(255,255,255,0.9);
+    }
+
+    .btn {
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      margin: 15px;
+      border-radius: 50px;
+      border: none;
+      background: linear-gradient(to right, #ff8c00, #ff4500);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(255, 140, 0, 0.4);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 69, 0, 0.6);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn i {
+      margin-right: 8px;
+      font-size: 1.2rem;
+    }
+
+    .share-btn {
+      background: linear-gradient(to right, #25D366, #128C7E);
+      display: none;
+    }
+
+    .firework {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: explode 1s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes explode {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+      }
+    }
+
+    .diya {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ff8c00" d="M50 20L30 60H70L50 20Z"/><circle cx="50" cy="65" r="15" fill="%23ff4500"/></svg>');
+      background-size: contain;
+      animation: flicker 2s infinite alternate;
+      opacity: 0;
+      z-index: 1;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      25% { opacity: 1; transform: scale(1.1); }
+      50% { opacity: 0.7; transform: scale(0.9); }
+      75% { opacity: 0.9; transform: scale(1.05); }
+    }
+
+    .lantern {
+      position: absolute;
+      width: 60px;
+      height: 80px;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 80"><rect x="10" y="10" width="40" height="60" rx="5" fill="%23ff4500" stroke="%23ffd700" stroke-width="2"/><rect x="25" y="0" width="10" height="10" fill="%23ffd700"/><path d="M15 20L45 20M15 30L45 30M15 40L45 40M15 50L45 50M15 60L45 60" stroke="%23ffd700" stroke-width="1"/></svg>');
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: swing 3s infinite alternate;
+      opacity: 0.8;
+      z-index: 1;
+    }
+
+    @keyframes swing {
+      0% { transform: rotate(-5deg); }
+      100% { transform: rotate(5deg); }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      .animated-text {
+        font-size: 1.6rem;
+      }
+      .diwali-img {
+        max-width: 280px;
+      }
+    }
+
+    /* Share options modal */
+    .share-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .share-options {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .share-option {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 10px;
+      background: #f5f5f5;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .share-option:hover {
+      background: #e0e0e0;
+      transform: translateX(5px);
+    }
+
+    .share-option i {
+      font-size: 24px;
+      margin-right: 15px;
+      width: 30px;
+      text-align: center;
+    }
+
+    .whatsapp { color: #25D366; }
+    .facebook { color: #1877F2; }
+    .telegram { color: #0088cc; }
+    .sms { color: #34B7F1; }
+    .other { color: #555; }
+
+    .close-share {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>शुभ दीपावली</h1>
+    
+    <img src="https://i.imgur.com/JQl1k3E.jpg" class="diwali-img" alt="Happy Diwali" onerror="this.src='diwali.jpg'">
+    
+    <h2 class="animated-text" id="diwaliMessage" style="display:none;"></h2>
+
+    <div id="inputSection">
+      <input type="text" id="nameInput" placeholder="अपना नाम लिखें" required>
+      <br>
+      <button class="btn" onclick="generateGreeting()"><i class="fas fa-paper-plane"></i> दीपावली बधाई बनाएं</button>
+    </div>
+
+    <div id="shareSection" style="display:none;">
+      <button class="btn share-btn" onclick="showShareOptions()"><i class="fas fa-share-alt"></i> बधाई शेयर करें</button>
+    </div>
+  </div>
+
+  <!-- Share Options Modal -->
+  <div class="share-modal" id="shareModal">
+    <div class="share-options">
+      <span class="close-share" onclick="hideShareOptions()">&times;</span>
+      <h3 style="color: #333; margin-top: 0;">शेयर करें</h3>
+      
+      <div class="share-option" onclick="shareVia('whatsapp')">
+        <i class="fab fa-whatsapp whatsapp"></i>
+        <span>WhatsApp</span>
+      </div>
+      
+      <div class="share-option" onclick="shareVia('facebook')">
+        <i class="fab fa-facebook-messenger facebook"></i>
+        <span>Facebook Messenger</span>
+      </div>
+      
+      <div class="share-option" onclick="shareVia('telegram')">
+        <i class="fab fa-telegram telegram"></i>
+        <span>Telegram</span>
+      </div>
+      
+      <div class="share-option" onclick="shareVia('sms')">
+        <i class="fas fa-sms sms"></i>
+        <span>SMS</span>
+      </div>
+      
+      <div class="share-option" onclick="shareVia('other')">
+        <i class="fas fa-share-alt other"></i>
+        <span>अन्य ऐप्स</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let greetingLink = '';
+    let greetingText = '';
+    
+    function generateGreeting() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (name === "") {
+        alert("कृपया अपना नाम लिखें");
+        return;
+      }
+
+      greetingLink = window.location.href.split('?')[0] + "?from=" + encodeURIComponent(name);
+      greetingText = `${decodeURIComponent(name)} की तरफ से आपको और आपके परिवार को\nदीपावली की हार्दिक शुभकामनाएं!\nमाँ लक्ष्मी आप पर अपनी कृपा बनाए रखें!\n\n${greetingLink}`;
+      
+      document.getElementById("inputSection").style.display = "none";
+      document.getElementById("shareSection").style.display = "block";
+      document.getElementById("diwaliMessage").style.display = "block";
+      document.getElementById("diwaliMessage").textContent =
+        `${decodeURIComponent(name)} की तरफ से आपको और आपके परिवार को\nदीपावली की हार्दिक शुभकामनाएं!\nमाँ लक्ष्मी आप पर अपनी कृपा बनाए रखें!`;
+      
+      launchFireworks();
+      createDecorations();
+    }
+
+    function showShareOptions() {
+      document.getElementById("shareModal").style.display = "flex";
+    }
+
+    function hideShareOptions() {
+      document.getElementById("shareModal").style.display = "none";
+    }
+
+    function shareVia(method) {
+      hideShareOptions();
+      
+      const shareData = {
+        title: 'दीपावली की शुभकामनाएं!',
+        text: greetingText.replace(greetingLink, '').trim(),
+        url: greetingLink
+      };
+
+      // Try Web Share API first
+      if (navigator.share) {
+        navigator.share(shareData)
+          .catch(err => console.log('Error sharing:', err));
+        return;
+      }
+
+      // Fallback for specific apps
+      switch(method) {
+        case 'whatsapp':
+          window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(greetingText)}`, '_blank');
+          break;
+        case 'facebook':
+          window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(greetingLink)}&quote=${encodeURIComponent(shareData.text)}`, '_blank');
+          break;
+        case 'telegram':
+          window.open(`https://t.me/share/url?url=${encodeURIComponent(greetingLink)}&text=${encodeURIComponent(shareData.text)}`, '_blank');
+          break;
+        case 'sms':
+          window.open(`sms:?body=${encodeURIComponent(greetingText)}`, '_blank');
+          break;
+        case 'other':
+          // For other apps, try to copy to clipboard
+          navigator.clipboard.writeText(greetingText)
+            .then(() => alert("बधाई संदेश कॉपी हो गया है! आप इसे किसी भी ऐप में पेस्ट कर सकते हैं।"))
+            .catch(err => console.log('Could not copy text: ', err));
+          break;
+      }
+    }
+
+    function createFirework(x, y) {
+      const colors = ['#ff0000', '#ff8c00', '#ffd700', '#7cfc00', '#00bfff', '#9932cc'];
+      
+      for (let i = 0; i < 40; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 5 + Math.random() * 15;
+        const tx = Math.cos(angle) * distance * 10;
+        const ty = Math.sin(angle) * distance * 10;
+        const duration = 0.5 + Math.random() * 0.7;
+        const size = 4 + Math.random() * 6;
+        
+        let particle = document.createElement("div");
+        particle.className = "firework";
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.setProperty('--tx', `${tx}px`);
+        particle.style.setProperty('--ty', `${ty}px`);
+        particle.style.animationDuration = `${duration}s`;
+        
+        document.body.appendChild(particle);
+        setTimeout(() => {
+          particle.remove();
+        }, duration * 1000);
+      }
+    }
+
+    function createDecorations() {
+      // Create diyas
+      const diyaCount = Math.floor(window.innerWidth / 40);
+      for (let i = 0; i < diyaCount; i++) {
+        const diya = document.createElement("div");
+        diya.className = "diya";
+        diya.style.left = `${Math.random() * 100}vw`;
+        diya.style.bottom = `${10 + Math.random() * 10}px`;
+        diya.style.animationDelay = `${Math.random() * 2}s`;
+        document.body.appendChild(diya);
+      }
+
+      // Create lanterns
+      const lanternCount = Math.floor(window.innerWidth / 100);
+      for (let i = 0; i < lanternCount; i++) {
+        const lantern = document.createElement("div");
+        lantern.className = "lantern";
+        lantern.style.left = `${10 + (i * (window.innerWidth / lanternCount))}px`;
+        lantern.style.top = `${20 + Math.random() * 30}px`;
+        lantern.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
+        lantern.style.animationDelay = `${Math.random() * 2}s`;
+        document.body.appendChild(lantern);
+      }
+    }
+
+    function launchFireworks() {
+      const interval = setInterval(() => {
+        let x = Math.random() * window.innerWidth;
+        let y = window.innerHeight;
+        createFirework(x, y);
+      }, 500);
+
+      setTimeout(() => clearInterval(interval), 15000);
+    }
+
+    window.onload = function () {
+      const params = new URLSearchParams(window.location.search);
+      const from = params.get("from");
+      if (from) {
+        greetingLink = window.location.href;
+        greetingText = `${decodeURIComponent(from)} की तरफ से आपको और आपके परिवार को\nदीपावली की हार्दिक शुभकामनाएं!\nमाँ लक्ष्मी आप पर अपनी कृपा बनाए रखें!\n\n${greetingLink}`;
+        
+        document.getElementById("inputSection").style.display = "none";
+        document.getElementById("shareSection").style.display = "block";
+        document.getElementById("diwaliMessage").style.display = "block";
+        document.getElementById("diwaliMessage").textContent =
+          `${decodeURIComponent(from)} की तरफ से आपको और आपके परिवार को\nदीपावली की हार्दिक शुभकामनाएं!\nमाँ लक्ष्मी आप पर अपनी कृपा बनाए रखें!`;
+        launchFireworks();
+        createDecorations();
+      }
+      
+      // Click/touch fireworks
+      document.body.addEventListener('click', (e) => {
+        createFirework(e.clientX, e.clientY);
+      });
+      
+      document.body.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 0) {
+          createFirework(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      });
+    };
+  </script>
+</body>
+</html>
